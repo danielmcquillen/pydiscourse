@@ -1117,7 +1117,7 @@ class DiscourseClient(object):
         """
         return self._post("/admin/users/{0}/groups".format(userid), group_id=groupid)
 
-    def delete_group_member(self, groupid, userid):
+    def delete_group_member(self, groupid, username):
         """
         Deletes a member from a group by user ID
 
@@ -1125,14 +1125,14 @@ class DiscourseClient(object):
 
         Args:
             groupid: the ID of the group
-            userid: the ID of the user
+            username: the ID of the user
 
         Returns:
             JSON API response
 
         """
         return self._delete(
-            "/admin/groups/{0}/members.json".format(groupid), user_id=userid
+            "/admin/groups/{0}/members.json".format(groupid), usernames=username
         )
 
     def color_schemes(self, **kwargs):
