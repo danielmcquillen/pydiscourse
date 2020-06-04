@@ -781,7 +781,7 @@ class DiscourseClient(object):
         return self._get("/u/{}/emails.json".format(username))
 
     def create_category(
-        self, name, color, text_color="FFFFFF", permissions=None, parent=None, **kwargs
+        self, name, color, text_color="FFFFFF", permissions=None, parent_id=None, **kwargs
     ):
         """
 
@@ -807,16 +807,7 @@ class DiscourseClient(object):
         for key, value in permissions.items():
             kwargs["permissions[{0}]".format(key)] = value
 
-        if parent:
-            parent_id = None
-            for category in self.categories():
-                if category["name"] == parent:
-                    parent_id = category["id"]
-                    continue
-
-            if not parent_id:
-                raise DiscourseClientError(u"{0} not found".format(parent))
-
+        if parent_id:
             kwargs["parent_category_id"] = parent_id
 
         return self._post("/categories", **kwargs)
@@ -1125,7 +1116,7 @@ class DiscourseClient(object):
 
         Args:
             groupid: the ID of the group
-            username: the ID of the user
+            username: the username of the user
 
         Returns:
             JSON API response
