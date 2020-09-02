@@ -827,6 +827,19 @@ class DiscourseClient(object):
         """
         return self._get("/categories.json", **kwargs)["category_list"]["categories"]
 
+    def category_by_id(self, id):
+        """
+
+        Args:
+            id:
+            **kwargs:
+
+        Returns:
+
+        """
+
+        return self._get(u"/c/{}/show.json".format(id))
+
     def category(self, name, parent=None, **kwargs):
         """
 
