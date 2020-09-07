@@ -48,7 +48,7 @@ class DiscourseClient(object):
         self.api_key = api_key
         self.timeout = timeout
 
-    def site(self, username):
+    def site(self):
         """
         Get site.json
 
