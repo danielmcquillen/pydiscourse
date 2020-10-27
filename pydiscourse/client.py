@@ -1149,7 +1149,7 @@ class DiscourseClient(object):
 
         """
         return self._delete(
-            "/admin/groups/{0}/members.json".format(groupid), username=username
+            "/groups/{0}/members.json".format(groupid), username=username
         )
 
     def color_schemes(self, **kwargs):
