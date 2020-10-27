@@ -1094,7 +1094,7 @@ class DiscourseClient(object):
 
         """
         return self._put(
-            "/admin/groups/{0}/members.json".format(groupid), usernames=username
+            "/groups/{0}/members.json".format(groupid), usernames=username
         )
 
     def add_group_members(self, groupid, usernames):
@@ -1114,7 +1114,7 @@ class DiscourseClient(object):
         """
         usernames = ",".join(usernames)
         return self._put(
-            "/admin/groups/{0}/members.json".format(groupid), usernames=usernames
+            "/groups/{0}/members.json".format(groupid), usernames=usernames
         )
 
     def add_user_to_group(self, groupid, userid):
