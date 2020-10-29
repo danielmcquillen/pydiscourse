@@ -1094,7 +1094,7 @@ class DiscourseClient(object):
 
         """
         return self._put(
-            "/groups/{0}/members.json".format(groupid), username=username
+            "/groups/{0}/members.json".format(groupid), usernames=username
         )
 
     def add_group_members(self, groupid, usernames):
