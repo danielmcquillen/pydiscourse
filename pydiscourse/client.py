@@ -1084,7 +1084,7 @@ class DiscourseClient(object):
 
         Args:
             groupid: the ID of the group
-            username: the new member usernmae
+            username: the new member username
 
         Returns:
             JSON API response
@@ -1094,7 +1094,7 @@ class DiscourseClient(object):
 
         """
         return self._put(
-            "/groups/{0}/members.json".format(groupid), usernames=username
+            "/groups/{0}/members.json".format(groupid), username=username
         )
 
     def add_group_members(self, groupid, usernames):
