@@ -1078,6 +1078,22 @@ class DiscourseClient(object):
         group = self._get("/groups/{0}/members.json".format(group_name), **kwargs)
         return group["members"]
 
+
+    def assign_user_to_group(self, user_id, group_id):
+        """
+        DMcQ: Adding this method to use different API for adding
+        user to group. The method below 'add_group_member'
+        errors out bc it doesn't like 'usernames' property
+        and I can't figure out why...
+        :param groupid:
+        :param username:
+        :return:
+        """
+
+        return self._post(
+            "/admin/users/{0}/groups".format(user_id), group_id=group_id
+        )
+
     def add_group_member(self, groupid, username):
         """
         Add a member to a group by username
