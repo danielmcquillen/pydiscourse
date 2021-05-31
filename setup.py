@@ -19,7 +19,7 @@ setup(
     license="BSD",
     url="https://github.com/danielmcquillen/pydiscourse",
     packages=find_packages(exclude=["tests.*", "tests"]),
-    python_requires='>=3',
+    python_requires='>=3.7',
     install_requires=[
         'requests>=2.25.1',
     ],
@@ -39,9 +39,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         'Programming Language :: Python :: Implementation :: PyPy',
     ],
