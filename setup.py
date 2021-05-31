@@ -1,6 +1,5 @@
 from setuptools import setup, find_packages
 
-
 README = open('README.rst').read()
 HISTORY = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
@@ -10,19 +9,19 @@ with open("pydiscourse/__init__.py", "r") as module_file:
             version_string = line.split("=")[1]
             VERSION = version_string.strip().replace("\"", "")
 
-
 setup(
     name="pydiscourse",
     version=VERSION,
-    description="A Python library for the Discourse API",
+    description="Fork of pydiscourse, a Python library for the Discourse API",
     long_description=README + '\n\n' + HISTORY,
     author="Marc Sibson and contributors",
-    author_email="ben+pydiscourse@benlopatin.com",
+    author_email="daniel@mcquilleninteractive.com",
     license="BSD",
-    url="https://github.com/bennylope/pydiscourse",
+    url="https://github.com/danielmcquillen/pydiscourse",
     packages=find_packages(exclude=["tests.*", "tests"]),
+    python_requires='>=3',
     install_requires=[
-        'requests>=2.4.2',
+        'requests>=2.25.1',
     ],
     tests_require=[
         'mock',
