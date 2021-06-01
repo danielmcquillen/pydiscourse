@@ -17,7 +17,6 @@ from pydiscourse.exceptions import (
 )
 from pydiscourse.sso import sso_payload
 
-
 log = logging.getLogger("pydiscourse.client")
 
 # HTTP verbs to be used as non string literals
@@ -511,19 +510,22 @@ class DiscourseClient(object):
             "/topics/private-messages-unread/{0}.json".format(username), **kwargs
         )
 
-    def category_topics(self, category_id, **kwargs):
+    def category_topics(self, category_id: int, **kwargs):
         """
         Returns a list of all topics in a category.
 
         Args:
-            **kwargs:
+            category_id:    ID of category to get topics from.
+            **kwargs
 
         Returns:
             JSON API response
 
         """
+
+        api_url = f"/c/{category_id}.json"
         return self._get(
-            "/c/{0}.json".format(category_id),
+            api_url,
             override_request_kwargs={"allow_redirects": True},
             **kwargs
         )
@@ -612,7 +614,6 @@ class DiscourseClient(object):
         """
         return self._get("/t/{0}/{1}.json".format(topic_id, post_id), **kwargs)
 
-
     def post_by_id(self, post_id, **kwargs):
         """
         Get a post from its id
@@ -691,7 +692,7 @@ class DiscourseClient(object):
         return self._put("{}".format(topic_url), **kwargs)
 
     def create_post(
-        self, content, category_id=None, topic_id=None, title=None, tags=[], **kwargs
+            self, content, category_id=None, topic_id=None, title=None, tags=[], **kwargs
     ):
         """
 
@@ -850,7 +851,7 @@ class DiscourseClient(object):
         return self._get("/u/{}/emails.json".format(username))
 
     def create_category(
-        self, name, color, text_color="FFFFFF", permissions=None, parent_id=None, **kwargs
+            self, name, color, text_color="FFFFFF", permissions=None, parent_id=None, **kwargs
     ):
         """
 
@@ -1027,20 +1028,20 @@ class DiscourseClient(object):
         return self._get("/groups/{0}.json".format(group_name))
 
     def create_group(
-        self,
-        name,
-        title="",
-        visible=True,
-        alias_level=0,
-        automatic_membership_retroactive=False,
-        primary_group=False,
-        automatic=False,
-        automatic_membership_email_domains="",
-        grant_trust_level=1,
-        flair_url=None,
-        flair_bg_color=None,
-        flair_color=None,
-        **kwargs
+            self,
+            name,
+            title="",
+            visible=True,
+            alias_level=0,
+            automatic_membership_retroactive=False,
+            primary_group=False,
+            automatic=False,
+            automatic_membership_email_domains="",
+            grant_trust_level=1,
+            flair_url=None,
+            flair_bg_color=None,
+            flair_color=None,
+            **kwargs
     ):
         """
         Args:
@@ -1139,7 +1140,6 @@ class DiscourseClient(object):
         kwargs["offset"] = offset
         group = self._get("/groups/{0}/members.json".format(group_name), **kwargs)
         return group["members"]
-
 
     def assign_user_to_group(self, user_id, group_id):
         """
@@ -1453,7 +1453,7 @@ class DiscourseClient(object):
         return self._request(DELETE, path, params=kwargs, override_request_kwargs=override_request_kwargs)
 
     def _request(
-        self, verb, path, params=None, files=None, data=None, json=None, override_request_kwargs=None
+            self, verb, path, params=None, files=None, data=None, json=None, override_request_kwargs=None
     ):
         """
         Executes HTTP request to API and handles response
@@ -1515,7 +1515,7 @@ class DiscourseClient(object):
                         # This codepath relies on wait_seconds from Discourse v2.0.0.beta3 / v1.9.3 or higher.
                         rj = response.json()
                         wait_delay = (
-                            retry_backoff + rj["extras"]["wait_seconds"]
+                                retry_backoff + rj["extras"]["wait_seconds"]
                         )  # how long to back off for.
 
                         if retry_count > 1:
