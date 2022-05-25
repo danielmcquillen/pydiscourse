@@ -13,7 +13,7 @@ import os
 import pydoc
 import sys
 
-from src.pydiscourse.client import DiscourseClient, DiscourseError
+from pydiscourse.client import DiscourseClient, DiscourseError
 
 
 class DiscourseCmd(cmd.Cmd):

@@ -26,7 +26,7 @@ import hashlib
 
 from urllib.parse import unquote, urlencode, parse_qs
 
-from src.pydiscourse.exceptions import DiscourseError
+from pydiscourse.exceptions import DiscourseError
 
 
 def sso_validate(payload, signature, secret):

@@ -9,13 +9,13 @@ import requests
 
 from datetime import timedelta, datetime
 
-from src.pydiscourse.exceptions import (
+from pydiscourse.exceptions import (
     DiscourseError,
     DiscourseServerError,
     DiscourseClientError,
     DiscourseRateLimitedError,
 )
-from src.pydiscourse.sso import sso_payload
+from pydiscourse.sso import sso_payload
 
 log = logging.getLogger("pydiscourse.client")
 
