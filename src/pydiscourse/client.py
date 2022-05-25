@@ -710,7 +710,7 @@ class DiscourseClient(object):
         return self._put("{}".format(topic_url), **kwargs)
 
     def create_post(
-            self, content, category_id=None, topic_id=None, title=None, tags=[], **kwargs
+        self, content, category_id=None, topic_id=None, title=None, tags=[], **kwargs
     ):
         """
 
