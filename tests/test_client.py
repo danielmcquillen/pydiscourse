@@ -5,6 +5,7 @@ from unittest import mock
 
 from pydiscourse import client
 
+
 if sys.version_info < (3,):
 
     def b(x):

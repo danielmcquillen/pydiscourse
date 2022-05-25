@@ -616,7 +616,6 @@ class DiscourseClient(object):
     def post_action_users(self, post_id, post_action_type_id=None, **kwargs):
         """
 
-
         Args:
             post_id: int
             post_action_type_id: Optional[int]
@@ -710,7 +709,7 @@ class DiscourseClient(object):
         return self._put("{}".format(topic_url), **kwargs)
 
     def create_post(
-        self, content, category_id=None, topic_id=None, title=None, tags=[], **kwargs
+            self, content, category_id=None, topic_id=None, title=None, tags=[], **kwargs
     ):
         """
 
@@ -878,8 +877,7 @@ class DiscourseClient(object):
             color:
             text_color: hex color without number symbol
             permissions: dict of 'everyone', 'admins', 'moderators', 'staff' with values of ???
-            parent: name of the category
-            parent_category_id:
+            parent_id: id of the parent category
             **kwargs:
 
         Returns:
@@ -1224,7 +1222,7 @@ class DiscourseClient(object):
         """
         usernames = ",".join(usernames)
         return self._put(
-            "/groups/{0}/members.json".format(groupid), usernames=usernames
+            "/admin//groups/{0}/members.json".format(groupid), usernames=usernames
         )
 
     def add_user_to_group(self, groupid, userid):
@@ -1579,7 +1577,7 @@ class DiscourseClient(object):
                         # This codepath relies on wait_seconds from Discourse v2.0.0.beta3 / v1.9.3 or higher.
                         rj = response.json()
                         wait_delay = (
-                                retry_backoff + rj["extras"]["wait_seconds"]
+                            retry_backoff + rj["extras"]["wait_seconds"]
                         )  # how long to back off for.
 
                         if retry_count > 1:

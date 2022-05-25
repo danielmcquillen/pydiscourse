@@ -1,5 +1,7 @@
-import unittest
 from base64 import b64decode
+
+import unittest
+
 from urllib.parse import unquote
 from urllib.parse import urlparse, parse_qs
 
