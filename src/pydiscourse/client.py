@@ -1171,13 +1171,22 @@ class DiscourseClient(object):
         user to group. The method below 'add_group_member'
         errors out bc it doesn't like 'usernames' property
         and I can't figure out why...
-        :param groupid:
-        :param username:
-        :return:
+
+        DMcQ:
+        I've sinced merged and the url in add_group_member is now
+                        "/admin/groups/{0}/members.json".format(groupid), usernames=username
+        so maybe that method works now?
+        TODO: Test...
+
+        Args:
+            user_id:
+            group_id:
+
+        Returns: response
         """
 
         return self._post(
-            "/admin/users/{0}/groups".format(user_id), group_id=group_id
+            f"/admin/users/{user_id}/groups", group_id=group_id
         )
 
     def add_group_member(self, groupid, username):
@@ -1196,7 +1205,7 @@ class DiscourseClient(object):
 
         """
         return self._put(
-            "/groups/{0}/members.json".format(groupid), usernames=username
+            "/admin/groups/{0}/members.json".format(groupid), usernames=username
         )
 
     def add_group_members(self, groupid, usernames):
