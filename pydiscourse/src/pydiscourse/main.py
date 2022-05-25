@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+#!/usr/bin/env python
+
+"""Simple command line interface for making Discourse API queries."""
 
 import cmd
 import json
@@ -8,19 +11,23 @@ import os
 import pydoc
 import sys
 
-from pydiscourse.client import DiscourseClient, DiscourseError
+from pydiscourse.src.pydiscourse.client import DiscourseClient, DiscourseError
 
 
 class DiscourseCmd(cmd.Cmd):
+    """Handles CLI commands"""
+
     prompt = "discourse>"
     output = sys.stdout
 
     def __init__(self, client):
+        """Initialize command"""
         cmd.Cmd.__init__(self)
         self.client = client
         self.prompt = "%s>" % self.client.host
 
     def __getattr__(self, attr):
+        """Gets attributes with dynamic name handling"""
         if attr.startswith("do_"):
             method = getattr(self.client, attr[3:])
 
@@ -48,6 +55,7 @@ class DiscourseCmd(cmd.Cmd):
         raise AttributeError
 
     def postcmd(self, result, line):
+        """Writes output of the command to console"""
         try:
             json.dump(
                 result, self.output, sort_keys=True, indent=4, separators=(",", ": ")
@@ -57,6 +65,7 @@ class DiscourseCmd(cmd.Cmd):
 
 
 def main():
+    """Runs the CLI application"""
     op = optparse.OptionParser()
     op.add_option("--host", default="http://localhost:4000")
     op.add_option("--api-user", default="system")

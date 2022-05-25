@@ -1,21 +1,11 @@
 from base64 import b64decode
+import unittest
 
-try:  # py26
-    import unittest2 as unittest
-except ImportError:
-    import unittest
+from urllib.parse import unquote
+from urllib.parse import urlparse, parse_qs
 
-
-try:  # py3
-    from urllib.parse import unquote
-    from urllib.parse import urlparse, parse_qs
-except ImportError:
-    from urlparse import urlparse, parse_qs
-    from urllib import unquote
-
-
-from pydiscourse import sso
-from pydiscourse.exceptions import DiscourseError
+from pydiscourse.src.pydiscourse import sso
+from pydiscourse import DiscourseError
 
 
 class SSOTestCase(unittest.TestCase):

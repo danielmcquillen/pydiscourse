@@ -9,13 +9,13 @@ import requests
 
 from datetime import timedelta, datetime
 
-from pydiscourse.exceptions import (
+from pydiscourse.src.pydiscourse.exceptions import (
     DiscourseError,
     DiscourseServerError,
     DiscourseClientError,
     DiscourseRateLimitedError,
 )
-from pydiscourse.sso import sso_payload
+from pydiscourse.src.pydiscourse.sso import sso_payload
 
 log = logging.getLogger("pydiscourse.client")
 
@@ -146,7 +146,7 @@ class DiscourseClient(object):
         Returns:
             user
         """
-        return self._get('/admin/users/{0}.json'.format(pk))
+        return self._get("/admin/users/{0}.json".format(pk))
 
     def user_by_email(self, email):
         """
@@ -158,7 +158,7 @@ class DiscourseClient(object):
         Returns:
             user
         """
-        return self._get('/admin/users/list/all.json?email={0}'.format(email))
+        return self._get("/admin/users/list/all.json?email={0}".format(email))
 
     def create_user(self, name, username, email, password, **kwargs):
         """
@@ -550,7 +550,7 @@ class DiscourseClient(object):
         Returns:
             List of top topics
         """
-        return self._get('/top.json', **kwargs)
+        return self._get("/top.json", **kwargs)
 
     def latest_topics(self, **kwargs):
         """
@@ -614,6 +614,21 @@ class DiscourseClient(object):
         """
         return self._get("/t/{0}/{1}.json".format(topic_id, post_id), **kwargs)
 
+    def post_action_users(self, post_id, post_action_type_id=None, **kwargs):
+        """
+        Args:
+            post_id: int
+            post_action_type_id: Optional[int]
+            **kwargs:
+        Returns:
+        """
+        # https://meta.discourse.org/t/getting-who-liked-a-post-from-the-api/103618
+
+        kwargs["id"] = post_id
+        if post_action_type_id is not None:
+            kwargs["post_action_type_id"] = post_action_type_id
+        return self._get("/post_action_users", **kwargs)
+
     def post_by_id(self, post_id, **kwargs):
         """
         Get a post from its id
@@ -624,7 +639,7 @@ class DiscourseClient(object):
         Returns:
             post
         """
-        return self._get('/posts/{0}.json'.format(post_id), **kwargs)
+        return self._get("/posts/{0}.json".format(post_id), **kwargs)
 
     def posts(self, topic_id, post_ids=None, **kwargs):
         """
@@ -760,7 +775,7 @@ class DiscourseClient(object):
 
         See https://meta.discourse.org/t/what-is-a-bump/105562
         """
-        return self._put('/t/{0}/reset-bump-date'.format(topic_id), **kwargs)
+        return self._put("/t/{0}/reset-bump-date".format(topic_id), **kwargs)
 
     def topics_by(self, username, **kwargs):
         """
@@ -907,12 +922,17 @@ class DiscourseClient(object):
         return self._get(f"/c/{id}/show.json")
 
     # This method is no longer available in the API. Use category_by_id() instead.
-    """
-    def category(self, name, parent=None, **kwargs):
-        if parent:
-            name = u"{0}/{1}".format(parent, name)
-        return self._get(u"/category/{0}.json".format(name), **kwargs)
-    """
+    def category(self, category_id, parent=None, **kwargs):
+        """
+
+        Args:
+            category_id:
+            **kwargs:
+
+        Returns:
+
+        """
+        return self._get(u"/c/{0}/show.json".format(category_id), **kwargs)
 
     def delete_category(self, category_id, **kwargs):
         """
@@ -927,19 +947,25 @@ class DiscourseClient(object):
         """
         return self._delete(u"/categories/{0}".format(category_id), **kwargs)
 
+    def get_site_info(self):
+        """
+        Get site info to fetch all categories and subcategories
+        """
+        return self._get("/site.json")
+
     def get_site_settings(self):
         """
         Get site settings
         """
-        return self._get('/admin/site_settings.json')
+        return self._get("/admin/site_settings.json")
 
     def category_latest_topics(self, name, parent=None, **kwargs):
         """
         Get latest topics from a category
         """
         if parent:
-            name = u'{0}/{1}'.format(parent, name)
-        return self._get(u'/c/{0}/l/latest.json'.format(name), **kwargs)
+            name = u"{0}/{1}".format(parent, name)
+        return self._get(u"/c/{0}/l/latest.json".format(name), **kwargs)
 
     def site_settings(self, **kwargs):
         """
@@ -1382,7 +1408,9 @@ class DiscourseClient(object):
         Requires discourse-data-explorer installed
         https://github.com/discourse/discourse-data-explorer
         """
-        return self._post('/admin/plugins/explorer/queries/{}/run'.format(query_id), **kwargs)
+        return self._post(
+            "/admin/plugins/explorer/queries/{}/run".format(query_id), **kwargs
+        )
 
     def notifications(self, category_id, **kwargs):
         """
@@ -1394,7 +1422,7 @@ class DiscourseClient(object):
                 notification_level=(int)
 
         """
-        return self._post('/category/{}/notifications'.format(category_id), **kwargs)
+        return self._post("/category/{}/notifications".format(category_id), **kwargs)
 
     def _get(self, path, override_request_kwargs=None, **kwargs):
         """
@@ -1406,7 +1434,9 @@ class DiscourseClient(object):
         Returns:
 
         """
-        return self._request(GET, path, params=kwargs, override_request_kwargs=override_request_kwargs)
+        return self._request(
+            GET, path, params=kwargs, override_request_kwargs=override_request_kwargs
+        )
 
     def _put(self, path, json=False, override_request_kwargs=None, **kwargs):
         """
@@ -1419,12 +1449,18 @@ class DiscourseClient(object):
 
         """
         if not json:
-            return self._request(PUT, path, data=kwargs, override_request_kwargs=override_request_kwargs)
+            return self._request(
+                PUT, path, data=kwargs, override_request_kwargs=override_request_kwargs
+            )
 
         else:
-            return self._request(PUT, path, json=kwargs, override_request_kwargs=override_request_kwargs)
+            return self._request(
+                PUT, path, json=kwargs, override_request_kwargs=override_request_kwargs
+            )
 
-    def _post(self, path, files=None, json=False, override_request_kwargs=None, **kwargs):
+    def _post(
+            self, path, files=None, json=False, override_request_kwargs=None, **kwargs
+    ):
         """
 
         Args:
@@ -1435,10 +1471,22 @@ class DiscourseClient(object):
 
         """
         if not json:
-            return self._request(POST, path, files=files, data=kwargs, override_request_kwargs=override_request_kwargs)
+            return self._request(
+                POST,
+                path,
+                files=files,
+                data=kwargs,
+                override_request_kwargs=override_request_kwargs,
+            )
 
         else:
-            return self._request(POST, path, files=files, json=kwargs, override_request_kwargs=override_request_kwargs)
+            return self._request(
+                POST,
+                path,
+                files=files,
+                json=kwargs,
+                override_request_kwargs=override_request_kwargs,
+            )
 
     def _delete(self, path, override_request_kwargs=None, **kwargs):
         """
@@ -1450,10 +1498,19 @@ class DiscourseClient(object):
         Returns:
 
         """
-        return self._request(DELETE, path, params=kwargs, override_request_kwargs=override_request_kwargs)
+        return self._request(
+            DELETE, path, params=kwargs, override_request_kwargs=override_request_kwargs
+        )
 
     def _request(
-            self, verb, path, params=None, files=None, data=None, json=None, override_request_kwargs=None
+            self,
+            verb,
+            path,
+            params=None,
+            files=None,
+            data=None,
+            json=None,
+            override_request_kwargs=None,
     ):
         """
         Executes HTTP request to API and handles response
@@ -1462,7 +1519,8 @@ class DiscourseClient(object):
             verb: HTTP verb as string: GET, DELETE, PUT, POST
             path: the path on the Discourse API
             params: dictionary of parameters to include to the API
-            override_request_kwargs: dictionary of requests.request keyword arguments to override defaults
+            override_request_kwargs: dictionary of requests.request
+                    keyword arguments to override defaults
 
         Returns:
             dictionary of response body data or None
