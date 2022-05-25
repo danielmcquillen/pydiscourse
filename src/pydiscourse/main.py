@@ -1,7 +1,4 @@
 #!/usr/bin/env python
-#!/usr/bin/env python
-
-"""Simple command line interface for making Discourse API queries."""
 
 """Simple command line interface for making Discourse API queries."""
 
