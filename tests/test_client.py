@@ -3,7 +3,7 @@ import unittest
 
 from unittest import mock
 
-from src.pydiscourse import client
+from pydiscourse import client
 
 if sys.version_info < (3,):
 

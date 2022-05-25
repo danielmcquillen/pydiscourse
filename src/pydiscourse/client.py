@@ -616,11 +616,15 @@ class DiscourseClient(object):
 
     def post_action_users(self, post_id, post_action_type_id=None, **kwargs):
         """
+
+
         Args:
             post_id: int
             post_action_type_id: Optional[int]
             **kwargs:
+
         Returns:
+
         """
         # https://meta.discourse.org/t/getting-who-liked-a-post-from-the-api/103618
 
@@ -910,28 +914,22 @@ class DiscourseClient(object):
 
     def category_by_id(self, id):
         """
-
         Args:
             id:
             **kwargs:
-
         Returns:
-
         """
 
         return self._get(f"/c/{id}/show.json")
 
-    # This method is no longer available in the API. Use category_by_id() instead.
     def category(self, category_id, parent=None, **kwargs):
         """
-
         Args:
             category_id:
             **kwargs:
-
         Returns:
-
         """
+
         return self._get(u"/c/{0}/show.json".format(category_id), **kwargs)
 
     def delete_category(self, category_id, **kwargs):

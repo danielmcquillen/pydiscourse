@@ -3,6 +3,8 @@
 
 """Simple command line interface for making Discourse API queries."""
 
+"""Simple command line interface for making Discourse API queries."""
+
 import cmd
 import json
 import logging
