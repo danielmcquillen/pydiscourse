@@ -4,7 +4,7 @@ import unittest
 from urllib.parse import unquote
 from urllib.parse import urlparse, parse_qs
 
-from pydiscourse.src.pydiscourse import sso
+from src.pydiscourse import sso
 from pydiscourse import DiscourseError
 
 
