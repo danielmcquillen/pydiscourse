@@ -1245,8 +1245,12 @@ class DiscourseClient(object):
     def delete_group_member(self, groupid, username):
         """
         Deletes a member from a group by user ID
-
         Does not delete the user from Discourse.
+
+        DMcQ: I've changed the second argument from 'userid' to 'username'
+        to better document to caller that fact we use, and the API expects,
+        string usernames not integer IDs.
+        See: https://docs.discourse.org/#tag/Groups/operation/removeGroupMembers
 
         Args:
             groupid: the ID of the group
