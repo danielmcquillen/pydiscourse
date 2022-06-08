@@ -1463,7 +1463,7 @@ class DiscourseClient(object):
             )
 
     def _post(
-            self, path, files=None, json=False, override_request_kwargs=None, **kwargs
+        self, path, files=None, json=False, override_request_kwargs=None, **kwargs
     ):
         """
 
@@ -1507,14 +1507,14 @@ class DiscourseClient(object):
         )
 
     def _request(
-            self,
-            verb,
-            path,
-            params=None,
-            files=None,
-            data=None,
-            json=None,
-            override_request_kwargs=None,
+        self,
+        verb,
+        path,
+        params=None,
+        files=None,
+        data=None,
+        json=None,
+        override_request_kwargs=None,
     ):
         """
         Executes HTTP request to API and handles response
