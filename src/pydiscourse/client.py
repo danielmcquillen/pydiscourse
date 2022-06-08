@@ -1049,20 +1049,20 @@ class DiscourseClient(object):
         return self._get("/groups/{0}.json".format(group_name))
 
     def create_group(
-            self,
-            name,
-            title="",
-            visible=True,
-            alias_level=0,
-            automatic_membership_retroactive=False,
-            primary_group=False,
-            automatic=False,
-            automatic_membership_email_domains="",
-            grant_trust_level=1,
-            flair_url=None,
-            flair_bg_color=None,
-            flair_color=None,
-            **kwargs
+        self,
+        name,
+        title="",
+        visible=True,
+        alias_level=0,
+        automatic_membership_retroactive=False,
+        primary_group=False,
+        automatic=False,
+        automatic_membership_email_domains="",
+        grant_trust_level=1,
+        flair_url=None,
+        flair_bg_color=None,
+        flair_color=None,
+        **kwargs
     ):
         """
         Args:
