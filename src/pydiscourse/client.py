@@ -1222,7 +1222,7 @@ class DiscourseClient(object):
         """
         usernames = ",".join(usernames)
         return self._put(
-            "/groups/{0}/members.json".format(groupid), usernames=usernames
+            "/admin/groups/{0}/members.json".format(groupid), usernames=usernames
         )
 
     def add_user_to_group(self, groupid, userid):
@@ -1257,7 +1257,7 @@ class DiscourseClient(object):
 
         """
         return self._delete(
-            "/groups/{0}/members.json".format(groupid), username=username
+            "/admin/groups/{0}/members.json".format(groupid), username=username
         )
 
     def color_schemes(self, **kwargs):
