@@ -4,10 +4,9 @@ Core API client module
 
 import logging
 import time
+from datetime import timedelta, datetime
 
 import requests
-
-from datetime import timedelta, datetime
 
 from pydiscourse.exceptions import (
     DiscourseError,
@@ -24,6 +23,8 @@ DELETE = "DELETE"
 GET = "GET"
 POST = "POST"
 PUT = "PUT"
+
+logger = logging.getLogger(__name__)
 
 
 class DiscourseClient(object):
@@ -1049,20 +1050,20 @@ class DiscourseClient(object):
         return self._get("/groups/{0}.json".format(group_name))
 
     def create_group(
-        self,
-        name,
-        title="",
-        visible=True,
-        alias_level=0,
-        automatic_membership_retroactive=False,
-        primary_group=False,
-        automatic=False,
-        automatic_membership_email_domains="",
-        grant_trust_level=1,
-        flair_url=None,
-        flair_bg_color=None,
-        flair_color=None,
-        **kwargs
+            self,
+            name,
+            title="",
+            visible=True,
+            alias_level=0,
+            automatic_membership_retroactive=False,
+            primary_group=False,
+            automatic=False,
+            automatic_membership_email_domains="",
+            grant_trust_level=1,
+            flair_url=None,
+            flair_bg_color=None,
+            flair_color=None,
+            **kwargs
     ):
         """
         Args:
@@ -1201,6 +1202,8 @@ class DiscourseClient(object):
             DiscourseError if user is already member of group
 
         """
+
+        logger.info(f"pydiscourse: adding username {username} to groupid {groupid}")
 
         if not groupid:
             raise ValueError("groupid is required")
@@ -1478,7 +1481,7 @@ class DiscourseClient(object):
             )
 
     def _post(
-        self, path, files=None, json=False, override_request_kwargs=None, **kwargs
+            self, path, files=None, json=False, override_request_kwargs=None, **kwargs
     ):
         """
 
@@ -1522,14 +1525,14 @@ class DiscourseClient(object):
         )
 
     def _request(
-        self,
-        verb,
-        path,
-        params=None,
-        files=None,
-        data=None,
-        json=None,
-        override_request_kwargs=None,
+            self,
+            verb,
+            path,
+            params=None,
+            files=None,
+            data=None,
+            json=None,
+            override_request_kwargs=None,
     ):
         """
         Executes HTTP request to API and handles response
@@ -1592,7 +1595,7 @@ class DiscourseClient(object):
                         # This codepath relies on wait_seconds from Discourse v2.0.0.beta3 / v1.9.3 or higher.
                         rj = response.json()
                         wait_delay = (
-                            retry_backoff + rj["extras"]["wait_seconds"]
+                                retry_backoff + rj["extras"]["wait_seconds"]
                         )  # how long to back off for.
 
                         if retry_count > 1:
