@@ -1201,6 +1201,17 @@ class DiscourseClient(object):
             DiscourseError if user is already member of group
 
         """
+
+        if not groupid:
+            raise ValueError("groupid is required")
+
+        if not username:
+            raise ValueError("username is required")
+
+        if username.endswith("."):
+            raise ValueError("The username {username} has a period as the "
+                             "last character, which will cause an error on Discourse.")
+
         return self._put(
             "/admin/groups/{0}/members.json".format(groupid), usernames=username
         )
