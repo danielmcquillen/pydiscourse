@@ -710,7 +710,9 @@ class DiscourseClient(object):
 
         """
         update_json = {
-            "title": title
+            "topic": {
+                "title": title
+            }
         }
         return self._put(f"/t/-/{topic_id}.json", json=update_json)
 
