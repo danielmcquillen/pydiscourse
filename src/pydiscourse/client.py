@@ -694,20 +694,25 @@ class DiscourseClient(object):
         """
         return self._get("/t/{0}/posts.json".format(topic_id), **kwargs)
 
-    def update_topic(self, topic_url, title, **kwargs):
+    def update_topic(self, topic_id, title, **kwargs):
         """
-        Update a topic
+        Remember that in Discourse, a topic is just a title.
+        The "content" of a topic is the first post in the topic.
+
+        This method just updates the title of a topic.
 
         Args:
-            topic_url:
-            title:
+            topic_id:       ID of the topic to update
+            title:          New title for the topic
             **kwargs:
 
         Returns:
 
         """
-        kwargs["title"] = title
-        return self._put("{}".format(topic_url), **kwargs)
+        update_json = {
+            "title": title
+        }
+        return self._put(f"/t/-/{topic_id}.json", json=update_json)
 
     def create_post(
             self, content, category_id=None, topic_id=None, title=None, tags=[], **kwargs
