@@ -709,8 +709,10 @@ class DiscourseClient(object):
         Returns:
 
         """
-        kwargs["title"] = title
-        return self._put(f"/t/-/{topic_id}.json", json=False, kwargs=kwargs)
+        kwargs = {
+            "title": title
+        }
+        return self._put(f"/t/-/{topic_id}.json", json=True, kwargs=kwargs)
 
     def create_post(
             self, content, category_id=None, topic_id=None, title=None, tags=[], **kwargs
