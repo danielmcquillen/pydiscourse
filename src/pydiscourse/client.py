@@ -714,7 +714,7 @@ class DiscourseClient(object):
                 "title": title
             }
         }
-        return self._put(f"/t/-/{topic_id}.json", json=update_json)
+        return self._put(f"/t/-/{topic_id}.json", json=True, kwargs=update_json)
 
     def create_post(
             self, content, category_id=None, topic_id=None, title=None, tags=[], **kwargs
@@ -1467,11 +1467,12 @@ class DiscourseClient(object):
             GET, path, params=kwargs, override_request_kwargs=override_request_kwargs
         )
 
-    def _put(self, path, json=False, override_request_kwargs=None, **kwargs):
+    def _put(self, path, json: bool = False, override_request_kwargs=None, **kwargs):
         """
 
         Args:
             path:
+            json:   Use json in requests. Default is False.
             **kwargs:
 
         Returns:
