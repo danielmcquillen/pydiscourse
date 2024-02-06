@@ -2,7 +2,7 @@
 
 """Python client for the Discourse API."""
 
-__version__ = "1.2.1"
+__version__ = "1.2.2"
 
 from pydiscourse.client import DiscourseClient
 
